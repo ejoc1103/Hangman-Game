@@ -1,5 +1,3 @@
-//GLOBAL VARIABLES
-//---------------------------------------
 // Used to record how many times a letter can be pressed
 var doubleWord = ['A','B','C',
           'D','E','F',
@@ -10,17 +8,19 @@ var doubleWord = ['A','B','C',
           'S','T','U',
           'V','W','X',
           'Y','Z'];
-//Holds the all the words
+//Holds possible words
 var wordBank = ["INTERDIMENSIONAL CABLE", "CRONENBERGS","PORTAL GUN","BIRD PERSON","GEARHEAD","WHIRLY DIRLY",
       "VINDICATORS", "CITADEL OF RICKS", "SQUANCHY", "PICKLE RICK","TINY RICK","JAGUAR","MR MEESEEKS",
       "ABRADOLF LINCLER","PLUMBUS","SLEEPY GARY","MORTYS MIND BLOWERS","SCARY TERRY", "SNUFFLES","SNOWBALL"];
+// holds words that have been used so they can't be repeated
 var wordsUsed = [];
-//Holds choosenWord
-var choosenWord = "";
+//Holds chosenWord
+var chosenWord = "";
 //Holds letters in word
 var lettersInWord = [];
 //Holds number of blanks in word
 var numBlanks = 0;
+//Needed a sepearate value to account for how many they have to get right to win
 var lettersNeeded = 0;
 //Holds Blanks and successful guesses
 var blanksAndSuccesses =[];
@@ -35,16 +35,7 @@ var rightGuessCounter = 0;
 //----------------------------------------
 function reset()
 {
-  //Chooses word randombly from the wordBank
-  // choosenWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-  //  while(wordsUsed.indexOf(choosenWord) > -1){
-          
-  //        choosenWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-  //     }
-      
-  //     wordsUsed.push(choosenWord);
-  //Splits the choosen word into individual letters
-  lettersInWord = choosenWord.split('');
+  lettersInWord = chosenWord.split('');
   //Get the number of blanks
   numBlanks = lettersInWord.length;
   lettersNeeded = lettersInWord.length;
@@ -77,15 +68,16 @@ function reset()
 function startGame()
 {
   //Chooses word randombly from the wordBank
-  choosenWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-      while(wordsUsed.indexOf(choosenWord) > -1){
-          choosenWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-          console.log(wordsUsed.indexOf(choosenWord) + "ahhhhh im stuck");
+  chosenWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+      while(wordsUsed.indexOf(chosenWord) > -1){
+          chosenWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+          //testing why this isnt working
+          console.log(wordsUsed.indexOf(chosenWord) + "ahhhhh im stuck");
         }
       
-      wordsUsed.push(choosenWord);
+      wordsUsed.push(chosenWord);
   //Splits the choosen word into individual letters
-  lettersInWord = choosenWord.split('');
+  lettersInWord = chosenWord.split('');
   //Get the number of blanks
   numBlanks = lettersInWord.length;
   lettersNeeded = lettersInWord.length;
@@ -132,7 +124,7 @@ function startGame()
   document.getElementById('lossCounter').innerHTML = loseCount;
   document.getElementById('wrongGuesses').innerHTML = wrongLetters;
   // Testing / Debugging
-  console.log(choosenWord);
+  console.log(chosenWord);
   console.log(lettersInWord);
   console.log(numBlanks);
   console.log(blanksAndSuccesses);
@@ -142,7 +134,7 @@ function compareLetters(userKey)
 {
         console.log('WORKING!');
         //If user key exist in choosen word then perform this function 
-        if(choosenWord.indexOf(userKey) > -1)
+        if(chosenWord.indexOf(userKey) > -1)
         {
           //Loops depending on the amount of blanks 
           for(var i = 0; i <= numBlanks; i++)
@@ -181,7 +173,7 @@ function winLose()
     winCount++;
     //Changes HTML
     document.getElementById('winCounter').innerHTML = winCount;
-    alert(choosenWord + ' You Win');
+    alert(chosenWord + ' You Win');
     if(winCount === wordBank.length){
       alert("Hey! Thats all the words.  We will now reset the game.")
       wordsUsed = [];
@@ -195,7 +187,7 @@ function winLose()
     loseCount++;
     //Changes HTML
     document.getElementById('lossCounter').innerHTML = loseCount;
-    alert( choosenWord + ' You Lose');
+    alert( chosenWord + ' You Lose');
     reset();
   }
 }
