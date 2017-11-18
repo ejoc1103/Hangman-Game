@@ -181,7 +181,11 @@ function winLose()
     winCount++;
     //Changes HTML
     document.getElementById('winCounter').innerHTML = winCount;
-    alert('You Win');
+    alert(choosenWord + ' You Win');
+    if(winCount === wordBank.length){
+      alert("Hey! Thats all the words.  We will now reset the game.")
+      wordsUsed = [];
+    }
     reset();
   }
   // When number of Guesses reaches 0 then You lose
@@ -191,7 +195,7 @@ function winLose()
     loseCount++;
     //Changes HTML
     document.getElementById('lossCounter').innerHTML = loseCount;
-    alert('You Lose');
+    alert( choosenWord + ' You Lose');
     reset();
   }
 }
